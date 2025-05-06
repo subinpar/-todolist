@@ -1,5 +1,4 @@
-import { useState, memo, useCallback, useMemo } from 'react';
-
+import { useState, memo, useMemo, useCallback } from 'react';
 // 메모이제이션이 적용되지 않은 컴포넌트
 const RegularComponent = ({ count, items = [], onCount }) => {
   console.log('RegularComponent 렌더링');
@@ -46,7 +45,7 @@ export default function AppMemo() {
   ]);
 
   const beginnerCourses = useMemo(() => {
-    return courses.filter(item => item.level === 0);
+    return courses.filter(course => course.level === 0);
   }, [courses]);
 
   const handleCount = useCallback(() => setCount(count + 1), [count]);

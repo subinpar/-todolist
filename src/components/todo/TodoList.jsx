@@ -1,19 +1,27 @@
 import TodoItem from './TodoItem';
 import { useMemo, useState } from 'react';
-
 export default function TodoList({ todos, onToggleTodo, onDeleteTodo }) {
+  console.log('✅ TodoList 컴포넌트 렌더링!');
+
   const [isDone, setIsDone] = useState(false);
+  const getFilteredTodos = () => {
+    if (!isDone) {
+      return todos;
+    }
+    return todos.filter(todo => todo.done);
+  };
+  const filteredTodos = getFilteredTodos();
 
-  const filteredTodos = useMemo(() => {
-    return isDone ? todos.filter(todo => todo.done) : todos;
-  }, [todos, isDone]);
-
-  const { totalCount, doneCount } = useMemo(() => {
+  const getStatsCount = () => {
+    console.log('getStatsCount 함수 실행!');
     const totalCount = todos.length;
     const doneCount = todos.filter(todo => todo.done).length;
-    return { totalCount, doneCount };
-  }, [todos]);
-
+    return {
+      totalCount,
+      doneCount,
+    };
+  };
+  const { totalCount, doneCount } = useMemo(() => getStatsCount(), [todos]);
   return (
     <>
       <div>
@@ -24,7 +32,7 @@ export default function TodoList({ todos, onToggleTodo, onDeleteTodo }) {
           onChange={e => setIsDone(e.target.checked)}
         />
         <label htmlFor="isDone">
-          완료된 항목 보기 ({doneCount}/{totalCount})
+          완료된 항목 보기({doneCount}/{totalCount})
         </label>
       </div>
       <ul>
