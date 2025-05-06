@@ -3,7 +3,7 @@ import { useImmerReducer } from 'use-immer';
 import TodoList from './components/todo/TodoList';
 import AddTodo from './components/todo/AddTodo';
 
-import todoReducer from './reducer/todo-reducer';
+import todoReducer from './reducer/todo-reducer.js';
 import { useState } from 'react';
 
 function AppTodo() {
